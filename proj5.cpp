@@ -51,6 +51,9 @@ int main(int argc, char** argv)
 	vector<int>    cntVect;
 	vector<double> probVect;
 
+	vector<string> wordVect_recv;
+	vector<int>    cntVect_recv;
+
 	//Parser
     CParser Parse;
 
@@ -120,6 +123,8 @@ int main(int argc, char** argv)
 			return 1;
 		}
 
+		wordCnt += nTokens;
+
 		for(int k = 0; k < nTokens; k++)
 		{
 			if(wordVect.size() == 0)
@@ -160,8 +165,11 @@ int main(int argc, char** argv)
 				}
 			}
 		}
+	}
 
-		dataFile.Iread(&buf, wordCnt, MPI_STR);
+	for(int i = 0; i < cntvect.size(); i++)
+	{
+		probVect.push_back(cntVect[i] / wordCnt);
 	}
 
 	dataFile.Close();
